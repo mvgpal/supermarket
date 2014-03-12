@@ -1,4 +1,4 @@
-class GithubExtractor < Extractor::Base
+class ChefOauth2Extractor < Extractor::Base
   # @see Extractor::Base#first_name
   def first_name
     split_name.first
@@ -19,11 +19,6 @@ class GithubExtractor < Extractor::Base
     auth['info']['nickname']
   end
 
-  # @see Extractor::Base#image_url
-  def image_url
-    auth['info']['image']
-  end
-
   # @see Extractor::Base#uid
   def uid
     auth['uid']
@@ -35,9 +30,9 @@ class GithubExtractor < Extractor::Base
   end
 
   #
-  # Return nil for +GithubExtractor+ because it does not return a public key
+  # The public_key for Chef server
   #
   def public_key
-    nil
+    auth['info']['public_key']
   end
 end

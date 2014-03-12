@@ -97,18 +97,13 @@ describe User do
   describe '#account_from_oauth' do
     it 'returns an account' do
       user = build(:user)
-      auth = {
-        'provider' => 'github',
-        'info' => { 'username' => 'johndoe' },
-        'credentials' => { 'token' => 'sometoken' },
-        'uid' => 'someuid'
-      }
+      auth = OmniAuth.config.mock_auth[:github]
 
       account = user.account_from_oauth(auth)
 
       expect(account.provider).to eql('github')
-      expect(account.uid).to eql('someuid')
-      expect(account.oauth_token).to eql('sometoken')
+      expect(account.uid).to eql(auth['uid'])
+      expect(account.oauth_token).to eql(auth['credentials']['token'])
     end
   end
 
@@ -220,6 +215,37 @@ describe User do
 
     it 'returns a new user if there is no user with that GitHub login' do
       expect(User.find_by_github_login('trex').persisted?).to be_false
+    end
+  end
+
+  describe '.find_or_create_from_oauth' do
+    let(:auth) do
+      OmniAuth.config.mock_auth[:chef_oauth2]
+    end
+
+    it 'creates records for new users' do
+      expect do
+        User.find_or_create_from_oauth(auth)
+      end.to change(User, :count).by(1)
+    end
+
+    it 'does not create a user if such a user exists' do
+      User.find_or_create_from_oauth(auth)
+
+      expect do
+        User.find_or_create_from_oauth(auth)
+      end.to_not change(User, :count)
+    end
+
+    it 'it returns a user' do
+      expect(
+        User.find_or_create_from_oauth(auth)
+      ).to be_a(User)
+    end
+
+    it "sets the user's public key" do
+      user = User.find_or_create_from_oauth(auth)
+      expect(user.public_key).to eql(auth['info']['public_key'])
     end
   end
 end
