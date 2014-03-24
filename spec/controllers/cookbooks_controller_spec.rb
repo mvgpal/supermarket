@@ -236,4 +236,42 @@ describe CookbooksController do
       expect(response.status.to_i).to eql(404)
     end
   end
+
+  describe 'POST #follow' do
+    let(:cookbook) { create(:cookbook) }
+
+    context 'a user is signed in' do
+      before { sign_in create(:user) }
+
+      it 'adds a follower to the specified cookbook' do
+        expect do
+          post :follow, id: cookbook
+        end.to change(cookbook.cookbook_followers, :count).by(1)
+      end
+
+      it 'returns a 200' do
+        post :follow, id: cookbook
+
+        expect(response.status.to_i).to eql(200)
+      end
+    end
+
+    context 'a user is not signed in' do
+      it 'redirects to user sign in' do
+        post :follow, id: cookbook
+
+        expect(response).to redirect_to(user_session_path)
+      end
+    end
+
+    context 'cookbook does not exist' do
+      before { sign_in create(:user) }
+
+      it 'returns a 404' do
+        post :follow, id: 'snarfle'
+
+        expect(response.status.to_i).to eql(404)
+      end
+    end
+  end
 end

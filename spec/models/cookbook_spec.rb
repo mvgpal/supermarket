@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Cookbook do
   context 'associations' do
     it { should have_many(:cookbook_versions) }
+    it { should have_many(:cookbook_followers) }
     it { should belong_to(:category) }
   end
 

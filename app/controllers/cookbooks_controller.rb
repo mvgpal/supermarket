@@ -100,6 +100,17 @@ class CookbooksController < ApplicationController
     @cookbook.update_attributes(cookbook_urls_params)
   end
 
+  #
+  # POST /cookbooks/:cookbook/follow
+  #
+  # Makes the current user a follower of the specified cookbook.
+  #
+  def follow
+    cookbook = Cookbook.with_name(params[:id]).first!
+    cookbook.cookbook_followers.create(user: current_user)
+    head 200
+  end
+
   private
 
   def assign_categories

@@ -12,7 +12,7 @@
   <div class="small-12 medium-8 columns">
     <h1><%= @cookbook.name %></h1>
 
-    <div class="button">Follow</div>
+    <%= link_to 'Follow', follow_cookbook_path(@cookbook), method: 'post', remote: true, rel: 'follow', class: 'button' %>
 
     <div><pre><code>knife cookbook site install <%= @cookbook.name %></code></pre></div>
 

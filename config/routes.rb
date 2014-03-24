@@ -29,7 +29,9 @@ Supermarket::Application.routes.draw do
   resources :cookbooks, only: [:index, :show, :update] do
     member do
       get :download
+      post :follow
     end
+  end
 
     get 'versions/:version/download' => 'cookbook_versions#download', as: :version_download
   end
