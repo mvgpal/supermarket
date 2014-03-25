@@ -558,9 +558,27 @@ input[type="search"].cookbook_search_textfield {
 }
 
 .cookbook_show_sidebar {
-  background-color: $clouds;
+  background-color: lighten($clouds, 4%);
   @include grid-column($columns: 4);
   padding: rem-calc(70);
+}
+
+.cookbook_show_heading {
+  border: none;
+  font-size: rem-calc(30);
+}
+
+.followbutton {
+  float: right;
+}
+
+.button_download_cookbook {
+  background-color: $primary_orange;
+  margin: rem-calc(-5 0 40 0);
+
+  &:hover {
+    background-color: darken($primary_orange, 10%);
+  }
 }
 
 // Cookbook category color classes

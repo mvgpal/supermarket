@@ -9,21 +9,47 @@
   </nav>
 
   <div class="cookbook_show_content">
-    <h1><%= @cookbook.name %></h1>
+    <h1 class="cookbook_show_heading">
+      <%= @cookbook.name %>
+      <small>
+        <a href="#" class="rss_feed_link"><i class="fa fa-rss"></i> RSS</a>
+      </small>
+      <small class="followbutton">
+        <i class="fa fa-users"></i> 349
+        <a href="#" class="button radius tiny">Follow</a>
+      </small>
+    </h1>
 
-    <div class="button">Follow</div>
+    <pre><code>knife cookbook site install <%= @cookbook.name %></code></pre>
 
-    <div><pre><code>knife cookbook site install <%= @cookbook.name %></code></pre></div>
+    <p><%= @cookbook.description %></p>
 
-    <div><p><%= @cookbook.description %></p></div>
-
-    <div><%= render_readme(@latest_version.readme, @latest_version.readme_extension) %></div>
+    <dl class="tabs" data-tab>
+      <dd class="active"><a href="#readme">readme</a></dd>
+      <dd><a href="#dependencies">Dependencies</a></dd>
+      <dd><a href="#relatedcookbooks">Related Cookbooks</a></dd>
+    </dl>
+    <div class="tabs-content">
+      <div class="content active" id="readme">
+        <%= render_readme(@latest_version.readme, @latest_version.readme_extension) %>
+      </div>
+      <div class="content" id="dependencies">
+        Dependencies
+      </div>
+      <div class="content" id="relatedcookbooks">
+        Related Cookbooks
+      </div>
+    </div>
   </div>
 
   <div class="cookbook_show_sidebar">
-    <div><%= link_to "Download Cookbook", download_cookbook_path(@cookbook) %></div>
-    <%= @cookbook.download_count %> total downloads<br />
-    <%= @latest_version.download_count %> latest version downloads
+    <%= link_to "Download Cookbook", download_cookbook_path(@cookbook), :class => 'button radius expand button_download_cookbook' %>
+    <h4>
+      <i class="fa fa-download"></i> <%= @cookbook.download_count %> total downloads
+      <small><%= @latest_version.download_count %> latest version downloads</small>
+    </h4>
+
+    <h3>cookbook Details</h3>
 
     <div class="cookbook-details">
       <h4>Cookbook Details</h4>
@@ -51,48 +77,46 @@
         <% end %>
       </div>
 
-      <h4><i class="fa fa-money"></i> Updated <%= @latest_version.updated_at.strftime('%B %-d, %Y') %></h4>
+    <h4>
+      <i class="fa fa-clock-o"></i> Updated <%= @latest_version.updated_at.strftime('%B %-d, %Y') %>
+      <small>Created on <%= @cookbook.created_at.strftime('%B %-d, %Y') %></small>
+    </h4>
 
-      <div>Created on <%= @cookbook.created_at.strftime('%B %-d, %Y') %></div>
-
-      <h4><i class="fa fa-money"></i> Versions</h4>
-      <ul>
-        <% @cookbook_versions.each_with_index do |version, index| %>
-          <% if index < @cookbook_versions.size - 1 %>
-            <li><%= version.version %>,</li>
-          <% else %>
-            <li><%= version.version %></li>
-          <% end %>
+    <h4><i class="fa fa-tasks"></i> Versions</h4>
+    <p>
+      <% @cookbook_versions.each_with_index do |version, index| %>
+        <% if index < @cookbook_versions.size - 1 %>
+          <%= version.version %>,
+        <% else %>
+          <%= version.version %>
         <% end %>
-      </ul>
+      <% end %>
+    </p>
 
-      <h4><i class="fa fa-money"></i> Platforms</h4>
-      <ul>
-        <% @supported_platforms.each do |platform| %>
-          <li class="cookbook_platform_icon has-tip" title="<%= platform.name %> <%= platform.version_constraint %>" data-tooltip data-icon="<%= supported_platform_icon(platform) %>">
-            <span><%= platform.name %></span>
-          </li>
-        <% end %>
-      </ul>
+    <h4><i class="fa fa-desktop"></i> Platforms</h4>
+    <ul>
+      <% @supported_platforms.each do |platform| %>
+        <li class="cookbook_platform_icon has-tip" title="<%= platform.name %> <%= platform.version_constraint %>" data-tooltip data-icon="<%= supported_platform_icon(platform) %>">
+          <span><%= platform.name %></span>
+        </li>
+      <% end %>
+    </ul>
 
-      <h4><i class="fa fa-money"></i> License</h4>
-      <p><%= @latest_version.license %></p>
-    </div>
+    <h4><i class="fa fa-key"></i> License</h4>
+    <p><%= @latest_version.license %></p>
 
+    <h3>Maintainer &amp; Collaborators</h3>
     <div>
-      <h4><i class="fa fa-money"></i> Maintainer &amp; Collaborators</h4>
-      <div>
-        <%= link_to @maintainer do %>
-          <%= gravatar_for @maintainer %>
-          <%= @maintainer.username %>
-          <%= @maintainer.name %>
-        <% end %>
-      </div>
-      <div>
-        <% @collaborators.each do |collaborator| %>
-          <%= link_to gravatar_for(collaborator), collaborator %>
-        <% end %>
-      </div>
+      <%= link_to @maintainer do %>
+        <%= gravatar_for @maintainer %>
+        <%= @maintainer.username %>
+        <%= @maintainer.name %>
+      <% end %>
+    </div>
+    <div>
+      <% @collaborators.each do |collaborator| %>
+        <%= link_to gravatar_for(collaborator), collaborator %>
+      <% end %>
     </div>
   </div>
 </div>
