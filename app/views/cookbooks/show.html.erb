@@ -1,15 +1,14 @@
 <%= provide(:title, "#{@cookbook.name} Cookbook") %>
 <%= provide(:description, @cookbook.description) %>
 
-<!-- breadcrumbs -->
-<nav class="breadcrumbs show-for-large-up">
-  <%= link_to 'Cookbooks', cookbooks_path %>
-  <%= link_to @cookbook.category.name, cookbooks_category_path(@cookbook.category) if @cookbook.category.present? %>
-  <%= link_to @cookbook.name, @cookbook %>
-</nav>
+<div class="cookbook_show">
+  <nav class="breadcrumbs show-for-large-up">
+    <%= link_to 'Cookbooks', cookbooks_path %>
+    <%= link_to @cookbook.category.name, cookbooks_category_path(@cookbook.category) if @cookbook.category.present? %>
+    <%= link_to @cookbook.name, @cookbook %>
+  </nav>
 
-<div class="row collapse cookbook">
-  <div class="small-12 medium-8 columns">
+  <div class="cookbook_show_content">
     <h1><%= @cookbook.name %></h1>
 
     <div class="button">Follow</div>
@@ -21,7 +20,7 @@
     <div><%= render_readme(@latest_version.readme, @latest_version.readme_extension) %></div>
   </div>
 
-  <div class="small-12 medium-4 columns sidebar">
+  <div class="cookbook_show_sidebar">
     <div><%= link_to "Download Cookbook", download_cookbook_path(@cookbook) %></div>
     <%= @cookbook.download_count %> total downloads<br />
     <%= @latest_version.download_count %> latest version downloads

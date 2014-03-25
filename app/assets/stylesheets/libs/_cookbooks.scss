@@ -545,6 +545,24 @@ input[type="search"].cookbook_search_textfield {
   }
 }
 
+// Cookbook show
+.cookbook_show {
+  @include grid-row();
+  position: relative;
+  z-index: 1;
+}
+
+.cookbook_show_content {
+  @include grid-column($columns: 8);
+  padding: rem-calc(70);
+}
+
+.cookbook_show_sidebar {
+  background-color: $clouds;
+  @include grid-column($columns: 4);
+  padding: rem-calc(70);
+}
+
 // Cookbook category color classes
 .category_applications {
   border-color: $category_applications;
