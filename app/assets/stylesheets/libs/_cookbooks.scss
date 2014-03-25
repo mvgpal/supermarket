@@ -547,6 +547,7 @@ input[type="search"].cookbook_search_textfield {
 
 // Cookbook show
 .cookbook_show {
+  @include background-image(linear-gradient(left, white, white 65.4%, lighten($clouds, 4%) 65.4%, lighten($clouds, 4%) 100%));
   @include grid-row();
   position: relative;
   z-index: 1;
@@ -558,7 +559,6 @@ input[type="search"].cookbook_search_textfield {
 }
 
 .cookbook_show_sidebar {
-  background-color: lighten($clouds, 4%);
   @include grid-column($columns: 4);
   padding: rem-calc(70);
 }
@@ -579,6 +579,16 @@ input[type="search"].cookbook_search_textfield {
   &:hover {
     background-color: darken($primary_orange, 10%);
   }
+}
+
+pre.prettyprint {
+  background-color: darken($primary_blue, 5%);
+  @include border-radius(rem-calc(3));
+  color: $silver;
+  font-size: rem-calc(12);
+  margin-bottom: rem-calc(20);
+  padding: rem-calc(15 20);
+  width: 100%;
 }
 
 // Cookbook category color classes
