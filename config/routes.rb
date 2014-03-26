@@ -30,6 +30,7 @@ Supermarket::Application.routes.draw do
     member do
       get :download
       post :follow
+      post :unfollow
     end
 
     get 'versions/:version/download' => 'cookbook_versions#download', as: :version_download

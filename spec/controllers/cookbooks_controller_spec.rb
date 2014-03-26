@@ -274,4 +274,38 @@ describe CookbooksController do
       end
     end
   end
+
+  describe 'POST #unfollow' do
+    let(:cookbook) { create(:cookbook) }
+
+    context 'the signed in user follows the specified cookbook' do
+      before do
+        user = create(:user)
+        create(:cookbook_follower, cookbook: cookbook, user: user)
+        sign_in(user)
+      end
+
+      it 'removes a follower from the specified cookbook' do
+        expect do
+          post :unfollow, id: cookbook
+        end.to change(cookbook.cookbook_followers, :count).by(-1)
+      end
+
+      it 'returns a 200' do
+        post :unfollow, id: cookbook
+
+        expect(response.status.to_i).to eql(200)
+      end
+    end
+
+    context "the signed in user doesn't follow the specified cookbook" do
+      before { sign_in create(:user) }
+
+      it 'returns a 404' do
+        post :unfollow, id: cookbook
+
+        expect(response.status.to_i).to eql(404)
+      end
+    end
+  end
 end

@@ -26,7 +26,7 @@ module CookbooksHelper
     end
 
     if cookbook.followed_by?(current_user)
-      link_to 'Unfollow', follow_cookbook_path(cookbook), method: 'post', remote: true, rel: 'unfollow', class: 'button follow'
+      link_to 'Unfollow', unfollow_cookbook_path(cookbook), method: 'post', remote: true, rel: 'unfollow', class: 'button follow'
     else
       link_to 'Follow', follow_cookbook_path(cookbook), method: 'post', remote: true, rel: 'follow', class: 'button follow'
     end
