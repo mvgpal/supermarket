@@ -162,4 +162,18 @@ body {
   top: rem-calc(30);
   left: rem-calc(70);
   z-index: 1;
+
+  * {
+    color: $concrete;
+    text-decoration: underline;
+    text-transform: none;
+
+    &:hover {
+      text-decoration: none;
+    }
+
+    &:last-child {
+      text-decoration: none;
+    }
+  }
 }
