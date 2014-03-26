@@ -135,6 +135,17 @@ class Cookbook < ActiveRecord::Base
     true
   end
 
+  #
+  # Returns true if the user passed follows the cookbook.
+  #
+  # @return [TrueClass]
+  #
+  # @param user [User]
+  #
+  def followed_by?(user)
+    cookbook_followers.where(user: user).any?
+  end
+
   private
 
   #
