@@ -21,14 +21,36 @@ module CookbooksHelper
   # @return [String] a link based on the following state for the current cookbook.
   #
   def follow_button_for(cookbook)
-    if !current_user
-      return link_to 'Follow', follow_cookbook_path(cookbook), method: 'post', rel: 'sign-in-to-follow', class: 'button follow', title: 'You must be signed in to follow a cookbook.', 'data-tooltip' => true
+    unless current_user
+      return link_to(
+        'Follow',
+        follow_cookbook_path(cookbook),
+        method: 'post',
+        rel: 'sign-in-to-follow',
+        class: 'button follow',
+        title: 'You must be signed in to follow a cookbook.',
+        'data-tooltip' => true
+      )
     end
 
     if cookbook.followed_by?(current_user)
-      link_to 'Unfollow', unfollow_cookbook_path(cookbook), method: 'post', remote: true, rel: 'unfollow', class: 'button follow'
+      link_to(
+        'Unfollow',
+        unfollow_cookbook_path(cookbook),
+        method: 'post',
+        remote: true,
+        rel: 'unfollow',
+        class: 'button follow'
+      )
     else
-      link_to 'Follow', follow_cookbook_path(cookbook), method: 'post', remote: true, rel: 'follow', class: 'button follow'
+      link_to(
+        'Follow',
+        follow_cookbook_path(cookbook),
+        method: 'post',
+        remote: true,
+        rel: 'follow',
+        class: 'button follow'
+      )
     end
   end
 end

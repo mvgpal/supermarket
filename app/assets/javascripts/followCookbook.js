@@ -14,5 +14,5 @@ $(function() {
    * Bind the successful ajax request attached to follow/unfollow buttons
    * to updateButtonState function.
    */
-  $('a.follow').on('ajax:success', updateButtonState);
+  $('.follow').on('ajax:success', updateButtonState);
 });
