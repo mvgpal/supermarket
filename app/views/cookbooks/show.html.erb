@@ -44,9 +44,9 @@
 
   <div class="cookbook_show_sidebar">
     <%= link_to "Download Cookbook", download_cookbook_path(@cookbook), :class => 'button radius expand button_download_cookbook' %>
-    <h4>
-      <i class="fa fa-download"></i> <%= @cookbook.download_count %> total downloads
-      <small><%= @latest_version.download_count %> latest version downloads</small>
+    <h4 class="cookbook_show_sidebar_downloads">
+      <i class="fa fa-download"></i> <%= @cookbook.download_count %> Total Downloads (API + Web)
+      <small><%= @latest_version.download_count %> Latest Version Downloads</small>
     </h4>
 
     <h3>cookbook Details</h3>
@@ -106,16 +106,16 @@
     <p><%= @latest_version.license %></p>
 
     <h3>Maintainer &amp; Collaborators</h3>
-    <div>
+    <div class="owner_avatar">
       <%= link_to @maintainer do %>
-        <%= gravatar_for @maintainer %>
+        <%= gravatar_for @maintainer, size: 144 %>
         <%= @maintainer.username %>
         <%= @maintainer.name %>
       <% end %>
     </div>
-    <div>
+    <div class="collaborators_avatar">
       <% @collaborators.each do |collaborator| %>
-        <%= link_to gravatar_for(collaborator), collaborator %>
+        <%= link_to gravatar_for(collaborator, size: 80), collaborator %>
       <% end %>
     </div>
   </div>
