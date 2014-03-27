@@ -249,10 +249,10 @@ describe CookbooksController do
         end.to change(cookbook.cookbook_followers, :count).by(1)
       end
 
-      it 'returns a 200' do
+      it 'renders follow' do
         post :follow, id: cookbook
 
-        expect(response.status.to_i).to eql(200)
+        expect(response).to render_template('follow')
       end
     end
 
@@ -291,10 +291,10 @@ describe CookbooksController do
         end.to change(cookbook.cookbook_followers, :count).by(-1)
       end
 
-      it 'returns a 200' do
-        post :unfollow, id: cookbook
+      it 'renders follow' do
+        post :follow, id: cookbook
 
-        expect(response.status.to_i).to eql(200)
+        expect(response).to render_template('follow')
       end
     end
 
