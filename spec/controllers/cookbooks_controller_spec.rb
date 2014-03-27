@@ -101,6 +101,7 @@ describe CookbooksController do
 
   describe 'PATCH #update' do
     let(:cookbook) { create(:cookbook) }
+    before { sign_in create(:user) }
 
     it 'updates the cookbook' do
       patch :update, id: cookbook, format: :js, cookbook: {
@@ -245,12 +246,12 @@ describe CookbooksController do
 
       it 'adds a follower to the specified cookbook' do
         expect do
-          post :follow, id: cookbook
+          post :follow, id: cookbook, format: :js
         end.to change(cookbook.cookbook_followers, :count).by(1)
       end
 
       it 'renders follow' do
-        post :follow, id: cookbook
+        post :follow, id: cookbook, format: :js
 
         expect(response).to render_template('follow')
       end
@@ -268,7 +269,7 @@ describe CookbooksController do
       before { sign_in create(:user) }
 
       it 'returns a 404' do
-        post :follow, id: 'snarfle'
+        post :follow, id: 'snarfle', format: :js
 
         expect(response.status.to_i).to eql(404)
       end
@@ -287,12 +288,12 @@ describe CookbooksController do
 
       it 'removes a follower from the specified cookbook' do
         expect do
-          post :unfollow, id: cookbook
+          post :unfollow, id: cookbook, format: :js
         end.to change(cookbook.cookbook_followers, :count).by(-1)
       end
 
       it 'renders follow' do
-        post :follow, id: cookbook
+        post :follow, id: cookbook, format: :js
 
         expect(response).to render_template('follow')
       end
@@ -302,7 +303,7 @@ describe CookbooksController do
       before { sign_in create(:user) }
 
       it 'returns a 404' do
-        post :unfollow, id: cookbook
+        post :unfollow, id: cookbook, format: :js
 
         expect(response.status.to_i).to eql(404)
       end
