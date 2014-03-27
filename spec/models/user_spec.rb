@@ -188,18 +188,13 @@ describe User do
   describe '#username' do
     it 'returns the chef username for the user' do
       user = create(:user)
-      account = create(
-        :account,
-        user: user,
-        provider: 'chef_oauth2',
-        username: 'joedoe'
-      )
 
-      expect(user.username).to eql('joedoe')
+      expect(user.username).to eql('johndoe')
     end
 
     it 'returns a blank string if the user has unlinked their Chef ID' do
       user = create(:user)
+      user.accounts.destroy_all # unlink all accounts aka destroy them
 
       expect(user.username).to eql('')
     end

@@ -1,12 +1,12 @@
 class ChefOauth2Extractor < Extractor::Base
   # @see Extractor::Base#first_name
   def first_name
-    split_name.first
+    auth['info']['first_name']
   end
 
   # @see Extractor::Base#last_name
   def last_name
-    split_name.last
+    auth['info']['last_name']
   end
 
   # @see Extractor::Base#email
@@ -16,7 +16,7 @@ class ChefOauth2Extractor < Extractor::Base
 
   # @see Extractor::Base#username
   def username
-    auth['info']['nickname']
+    auth['info']['username']
   end
 
   # @see Extractor::Base#uid
