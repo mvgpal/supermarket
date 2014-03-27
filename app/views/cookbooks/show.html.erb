@@ -18,6 +18,7 @@
         <i class="fa fa-users"></i> 349
         <a href="#" class="button radius tiny">Follow</a>
       </small>
+      <%= link_to_function "<i class='fa fa-chevron-left previouspage'></i>".html_safe, "history.back()" %>
     </h1>
 
     <pre class="prettyprint">knife cookbook site install <%= @cookbook.name %></pre>
@@ -77,46 +78,47 @@
         <% end %>
       </div>
 
-    <h4>
-      <i class="fa fa-clock-o"></i> Updated <%= @latest_version.updated_at.strftime('%B %-d, %Y') %>
-      <small>Created on <%= @cookbook.created_at.strftime('%B %-d, %Y') %></small>
-    </h4>
+      <h4>
+        <i class="fa fa-clock-o"></i> Updated <%= @latest_version.updated_at.strftime('%B %-d, %Y') %>
+        <small>Created on <%= @cookbook.created_at.strftime('%B %-d, %Y') %></small>
+      </h4>
 
-    <h4><i class="fa fa-tasks"></i> Versions</h4>
-    <p>
-      <% @cookbook_versions.each_with_index do |version, index| %>
-        <% if index < @cookbook_versions.size - 1 %>
-          <%= version.version %>,
-        <% else %>
-          <%= version.version %>
+      <h4><i class="fa fa-tasks"></i> Versions</h4>
+      <p>
+        <% @cookbook_versions.each_with_index do |version, index| %>
+          <% if index < @cookbook_versions.size - 1 %>
+            <%= version.version %>,
+          <% else %>
+            <%= version.version %>
+          <% end %>
         <% end %>
-      <% end %>
-    </p>
+      </p>
 
-    <h4><i class="fa fa-desktop"></i> Platforms</h4>
-    <ul>
-      <% @supported_platforms.each do |platform| %>
-        <li class="cookbook_platform_icon has-tip" title="<%= platform.name %> <%= platform.version_constraint %>" data-tooltip data-icon="<%= supported_platform_icon(platform) %>">
-          <span><%= platform.name %></span>
-        </li>
-      <% end %>
-    </ul>
+      <h4><i class="fa fa-desktop"></i> Platforms</h4>
+      <ul>
+        <% @supported_platforms.each do |platform| %>
+          <li class="cookbook_platform_icon has-tip" title="<%= platform.name %> <%= platform.version_constraint %>" data-tooltip data-icon="<%= supported_platform_icon(platform) %>">
+            <span><%= platform.name %></span>
+          </li>
+        <% end %>
+      </ul>
 
-    <h4><i class="fa fa-key"></i> License</h4>
-    <p><%= @latest_version.license %></p>
+      <h4><i class="fa fa-key"></i> License</h4>
+      <p><%= @latest_version.license %></p>
 
-    <h3>Maintainer &amp; Collaborators</h3>
-    <div class="owner_avatar">
-      <%= link_to @maintainer do %>
-        <%= gravatar_for @maintainer, size: 144 %>
-        <%= @maintainer.username %>
-        <%= @maintainer.name %>
-      <% end %>
-    </div>
-    <div class="collaborators_avatar">
-      <% @collaborators.each do |collaborator| %>
-        <%= link_to gravatar_for(collaborator, size: 80), collaborator %>
-      <% end %>
+      <h3>Maintainer &amp; Collaborators</h3>
+      <div class="owner_avatar">
+        <%= link_to @maintainer do %>
+          <%= gravatar_for @maintainer, size: 144 %>
+          <%= @maintainer.username %>
+          <%= @maintainer.name %>
+        <% end %>
+      </div>
+      <div class="collaborators_avatar">
+        <% @collaborators.each do |collaborator| %>
+          <%= link_to gravatar_for(collaborator, size: 80), collaborator %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

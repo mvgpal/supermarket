@@ -343,6 +343,10 @@ input[type="search"].cookbook_search_textfield {
   margin-left: rem-calc(15);
 
   .fa-rss { color: $primary_orange; }
+
+  .cookbook_show_heading & {
+    margin-top: rem-calc(-5);
+  }
 }
 
 .cookbook_listing {
@@ -617,10 +621,38 @@ input[type="search"].cookbook_search_textfield {
 .cookbook_show_heading {
   border: none;
   font-size: rem-calc(30);
+  position: relative;
+  z-index: 1;
+}
+ 
+.previouspage {
+  @include box-sizing(border-box);
+  color: $silver;
+  display: block;
+  font-size: rem-calc(18);
+  left: rem-calc(-57);
+  padding: rem-calc(15);
+  position: absolute;
+  @include single-transition($speed: 100ms);
+  text-align: center;
+  top: 0;
+  z-index: 1;
+  &:hover {
+    color: darken($silver, 10%);
+  }
 }
 
 .followbutton {
+  color: $concrete;
   float: right;
+  font: {
+    size: rem-calc(10);
+    weight: $bold;
+  }
+
+  .button {
+    margin-left: rem-calc(10);
+  }
 }
 
 .button_download_cookbook {
